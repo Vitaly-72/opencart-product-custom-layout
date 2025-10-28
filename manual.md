@@ -13,6 +13,7 @@
 4. **Добавьте логику выбора шаблона в контроллер**:  
 Откройте файл: catalog/controller/product/product.php
 Найдите место, где определяется шаблон отображения (обычно перед `return $this->load->view(...)`), и вставьте следующий код:
+![Screenshot](code.jpg) 
 
 ```php
 // === ОПРЕДЕЛЕНИЕ КАСТОМНОГО ШАБЛОНА ===
@@ -83,3 +84,4 @@ if ($product_id) {
 ```
 4. Assign the layout to a product:
 In the OpenCart admin panel, open the desired product’s edit page → go to the "Design" tab → select the "Unique Product" layout.
+![Screenshot](image.jpg) 
