@@ -41,6 +41,7 @@ if ($product_id) {
 4. **Назначьте макет товару**:
 В админке OpenCart откройте карточку нужного товара → вкладка «Дизайн» → выберите макет «Уникальный товар».
 Теперь этот товар будет отображаться с использованием вашего кастомного шаблона product_special.twig.
+![Screenshot](imege.jpg)
 
 # 📌 How to Create a Custom Product Layout in OpenCart
 
@@ -59,7 +60,8 @@ if ($product_id) {
    ``catalog/controller/product/product.php``  
    Find the section where the view template is determined (usually just before the line ``return $this->load->view(...);``), and insert the following code:
 
-   ```php
+   ```
+   php
    // === CUSTOM TEMPLATE DETECTION ===
    $template = 'product/product'; // default template
 
@@ -82,6 +84,7 @@ if ($product_id) {
        }
    }
 ```
+
 4. Assign the layout to a product:
 In the OpenCart admin panel, open the desired product’s edit page → go to the "Design" tab → select the "Unique Product" layout.
 ![Screenshot](image.jpg) 
