@@ -35,6 +35,50 @@ if ($product_id) {
         }
     }
 }
+```
 4. **Назначьте макет товару**:
 В админке OpenCart откройте карточку нужного товара → вкладка «Дизайн» → выберите макет «Уникальный товар».
 Теперь этот товар будет отображаться с использованием вашего кастомного шаблона product_special.twig.
+
+# 📌 How to Create a Custom Product Layout in OpenCart
+
+## 🇬🇧 English
+
+1. **Create a new layout** in the OpenCart admin panel.  
+   For example, name it **"Unique Product"** (you can use any name — it will be used to identify the custom template).
+
+2. **Create or copy a product template**:  
+   Go to the folder:  
+   ``catalog/view/template/product/``  
+   Create a new file called ``product_special.twig`` **or** copy the existing ``product.twig`` file and customize it as needed (e.g., add a JavaScript marquee script, modify HTML structure, CSS classes, etc.).
+
+3. **Add template selection logic to the controller**:  
+   Open the file:  
+   ``catalog/controller/product/product.php``  
+   Find the section where the view template is determined (usually just before the line ``return $this->load->view(...);``), and insert the following code:
+
+   ```php
+   // === CUSTOM TEMPLATE DETECTION ===
+   $template = 'product/product'; // default template
+
+   if ($product_id) {
+       // Get the layout_id assigned to this product
+       $layout_id = $this->model_catalog_product->getLayoutId($product_id);
+
+       if ($layout_id) {
+           // Fetch the layout name from the 'layout' table
+           $layout_query = $this->db->query("SELECT `name` FROM `" . DB_PREFIX . "layout` WHERE `layout_id` = '" . (int)$layout_id . "'");
+
+           if ($layout_query->num_rows) {
+               $layout_name = $layout_query->row['name'];
+
+               // If the layout name contains "Unique Product", use the custom template
+               if (strpos($layout_name, 'Unique Product') !== false) {
+                   $template = 'product/product_special';
+               }
+           }
+       }
+   }
+```
+4. Assign the layout to a product:
+In the OpenCart admin panel, open the desired product’s edit page → go to the "Design" tab → select the "Unique Product" layout.
