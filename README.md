@@ -50,29 +50,30 @@ Easily assign a **custom Twig template** to any product in OpenCart 4.1.0.3 by s
    ``catalog/controller/product/product.php``  
    Find the section where the view template is determined (usually just before the line return $this->load->view(...);), and insert the following code:
 
-   ```php
-   // === CUSTOM TEMPLATE DETECTION ===
-   $template = 'product/product'; // default template
+ ```php
+// === CUSTOM TEMPLATE DETECTION ===
+$template = 'product/product'; // default template
 
-   if ($product_id) {
-       // Get the layout_id assigned to this product
-       $layout_id = $this->model_catalog_product->getLayoutId($product_id);
+if ($product_id) {
+    // Get the layout_id assigned to this product
+    $layout_id = $this->model_catalog_product->getLayoutId($product_id);
 
-       if ($layout_id) {
-           // Fetch the layout name from the 'layout' table
-           $layout_query = $this->db->query("SELECT `name` FROM `" . DB_PREFIX . "layout` WHERE `layout_id` = '" . (int)$layout_id . "'");
+    if ($layout_id) {
+        // Fetch the layout name from the layout table
+        $layout_query = $this->db->query("SELECT `name` FROM `" . DB_PREFIX . "layout` WHERE `layout_id` = '" . (int)$layout_id . "'");
 
-           if ($layout_query->num_rows) {
-               $layout_name = $layout_query->row['name'];
+        if ($layout_query->num_rows) {
+            $layout_name = $layout_query->row['name'];
 
-               // If the layout name contains "Unique Product", use the custom template
-               if (strpos($layout_name, 'Unique Product') !== false) {
-                   $template = 'product/product_special';
-               }
-           }
-       }
-   }
+            // If the layout name contains Unique Product, use the custom template
+            if (strpos($layout_name, 'Уникальный товар') !== false) {
+                $template = 'product/product_special';
+            }
+        }
+    }
+}
 ```
+
 
 4. Assign the layout to a product:
 In the OpenCart admin panel, open the desired product’s edit page → go to the "Design" tab → select the "Unique Product" layout.
