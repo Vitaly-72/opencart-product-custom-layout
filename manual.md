@@ -4,7 +4,7 @@
 
 1. **Создайте новый макет** в админке OpenCart.  
    Например, назовите его **«Уникальный товар»** (название может быть любым — оно будет использоваться для определения шаблона).
-   ![Screenshot](maket.jpg) 
+   
 
 3. **Создайте или скопируйте шаблон товара**:  
    Перейдите в папку:  catalog/view/template/product/
@@ -13,7 +13,8 @@
 4. **Добавьте логику выбора шаблона в контроллер**:  
 Откройте файл: catalog/controller/product/product.php
 Найдите место, где определяется шаблон отображения (обычно перед `return $this->load->view(...)`), и вставьте следующий код:
-![Screenshot](code.jpg) 
+![Screenshot](code.jpg)
+
 
 ```php
 // === ОПРЕДЕЛЕНИЕ КАСТОМНОГО ШАБЛОНА ===
@@ -49,13 +50,14 @@ if ($product_id) {
 
 1. **Create a new layout** in the OpenCart admin panel.  
    For example, name it **"Unique Product"** (you can use any name — it will be used to identify the custom template).
+   ![Screenshot](maket.jpg) 
 
-2. **Create or copy a product template**:  
+3. **Create or copy a product template**:  
    Go to the folder:  
    ``catalog/view/template/product/``  
    Create a new file called ``product_special.twig`` **or** copy the existing ``product.twig`` file and customize it as needed (e.g., add a JavaScript marquee script, modify HTML structure, CSS classes, etc.).
 
-3. **Add template selection logic to the controller**:  
+4. **Add template selection logic to the controller**:  
    Open the file:  
    ``catalog/controller/product/product.php``  
    Find the section where the view template is determined (usually just before the line ``return $this->load->view(...);``), and insert the following code:
